@@ -1,0 +1,17 @@
+# IntelliJ
+.idea/
+
+# Task specific PSD (todilo.png can stay to make the repository self-contained, it's only 24 KB)
+# (I purged the PSD from the git history using filter-branch)
+todilo.psd
+
+# Node
+logs
+*.log
+npm-debug.log*
+node_modules
+
+# OS
+Thumbs.db
+.DS_Store
+
