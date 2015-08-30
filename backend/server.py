@@ -24,7 +24,7 @@ def index():
 @app.route('/tasks/<id>', methods=['GET'])
 def get(id):
     if id not in tasks:
-        abort(404)
+        abort(404, 'Task with id %s could not be found' % id)
     publicTask = getPublicTask(id)
     return jsonify(publicTask)
 
@@ -34,13 +34,13 @@ def create():
 
     # Request body must contain a text attribute
     if input is None or not 'text' in input:
-        abort(400)
+        abort(400, 'A text attribute is required in the request body')
 
     # Build the task
     id = shortuuid.uuid()
     task = {
         'text': input.get('text'),
-        'done': input.get('done'),
+        'done': input.get('done', False),
     }
 
     # Store it
@@ -55,9 +55,22 @@ def create():
 @app.route('/tasks/<id>', methods=['DELETE'])
 def delete(id):
     if id not in tasks:
-        abort(404)
+        abort(404, 'Task with id %s could not be found' % id)
     del tasks[id]
     return '', 204
+
+@app.errorhandler(404)
+def not_found(error):
+    resp = jsonify({'error': 'Not found: %s' % error.description})
+    resp.status_code = 404
+    return resp
+
+@app.errorhandler(400)
+def not_found(error):
+    resp = jsonify({'error': 'Bad Request: %s' % error.description})
+    resp.status_code = 400
+    return resp
+
 
 if __name__ == '__main__':
     app.run(debug=True)
