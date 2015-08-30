@@ -1,5 +1,7 @@
 var gulp = require('gulp');
-var babel = require('gulp-babel');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var babelify = require('babelify');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 var spawn = require('child_process').spawn;
@@ -8,20 +10,22 @@ var node;
 /**
  * Build
  */
-gulp.task('js', function() {
-	return gulp.src('src/js/**/*.js')
-		.pipe(babel())
-		.pipe(gulp.dest('dist/js'))
+gulp.task('browserify', function() {
+	return browserify('./src/js/app.js')
+		.transform(babelify)
+		.bundle()
+		.pipe(source('client.bundle.js'))
+		.pipe(gulp.dest('./dist/js'))
 });
 
 gulp.task('less', function() {
 	return gulp.src('src/less/**/*.less')
 		.pipe(less())
 		.pipe(minifyCSS())
-		.pipe(gulp.dest('dist/css'));
+		.pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('build', ['js', 'less']);
+gulp.task('build', ['browserify', 'less']);
 
 /**
  * Server and Watch
