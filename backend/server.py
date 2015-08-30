@@ -1,6 +1,5 @@
-import sys
 import shortuuid
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, url_for
 app = Flask(__name__)
 
 tasks = {
@@ -10,15 +9,24 @@ tasks = {
     shortuuid.uuid(): { 'text': 'Check gym hours', 'done': True },
 }
 
+def getPublicTask(id):
+    return {         
+        'uri': url_for('get', id = id),         
+        'text': tasks[id].get('text'),
+        'done': tasks[id].get('done'),
+    }
+
 @app.route('/tasks', methods=['GET'])
 def index():
-    return jsonify({'tasks': tasks})
+    publicTasks = map(getPublicTask, tasks)
+    return jsonify({'tasks': publicTasks})
 
 @app.route('/tasks/<id>', methods=['GET'])
 def get(id):
     if id not in tasks:
         abort(404)
-    return jsonify(tasks[id])
+    publicTask = getPublicTask(id)
+    return jsonify(publicTask)
 
 @app.route('/tasks', methods=['POST'])
 def create():
