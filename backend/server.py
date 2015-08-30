@@ -33,7 +33,7 @@ def create():
     input = request.get_json()
 
     # Request body must contain a text attribute
-    if input is None or not 'text' in input:
+    if input is None or not'text' in input:
         abort(400, 'A text attribute is required in the request body')
 
     # Build the task
@@ -49,7 +49,33 @@ def create():
     # Create a response
     resp = jsonify(task)
     resp.status_code = 201
-    resp.headers['location'] = '/tasks/%s' % id
+    resp.headers['location'] = url_for('get', id = id)
+    return resp
+
+@app.route('/tasks/<id>', methods=['PUT'])
+def update(id):
+    if id not in tasks:
+        abort(404, 'Task with id %s could not be found' % id)
+    
+    input = request.get_json()
+
+    # Request body must contain a text attribute
+    if input is None or not'text' in input:
+        abort(400, 'A text attribute is required in the request body')
+
+    # Build the task
+    task = {
+        'text': input.get('text'),
+        'done': input.get('done', False),
+    }
+
+    # Replace the old task
+    tasks[id] = task;
+    
+    # Create a response
+    resp = jsonify(task)
+    resp.status_code = 201
+    resp.headers['location'] = url_for('get', id = id)
     return resp
 
 @app.route('/tasks/<id>', methods=['DELETE'])
