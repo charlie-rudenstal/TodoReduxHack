@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var less = require('gulp-less');
+var minifyCSS = require('gulp-minify-css');
 var spawn = require('child_process').spawn;
 var node;
 
@@ -16,6 +17,7 @@ gulp.task('js', function() {
 gulp.task('less', function() {
 	return gulp.src('src/less/**/*.less')
 		.pipe(less())
+		.pipe(minifyCSS())
 		.pipe(gulp.dest('dist/css'));
 });
 
