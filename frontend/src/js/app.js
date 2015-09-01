@@ -1,3 +1,11 @@
 import React from 'react';
 
-console.log('Client Testing Browserify and Babelify', React);
+class HelloWorld extends React.Component {
+
+	render() {
+		return <div>Hello World</div>;
+	}
+}
+
+React.render(<HelloWorld />, document.getElementById('main'));
+
