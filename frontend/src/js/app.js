@@ -1,11 +1,16 @@
 import React from 'react';
+import TaskListContainer from './components/TaskListContainer';
 
-class HelloWorld extends React.Component {
+class App extends React.Component {
 
 	render() {
-		return <div>Hello World</div>;
+		return  (
+			<div>
+				<TaskListContainer />
+			</div>
+		);
 	}
 }
 
-React.render(<HelloWorld />, document.getElementById('main'));
+React.render(<App />, document.getElementById('main'));
 
