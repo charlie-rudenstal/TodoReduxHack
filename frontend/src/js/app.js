@@ -1,8 +1,9 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 import TaskListContainer from './components/TaskListContainer';
 
 class App extends React.Component {
-
 	render() {
 		return  (
 			<div>
@@ -12,5 +13,9 @@ class App extends React.Component {
 	}
 }
 
-React.render(<App />, document.getElementById('main'));
+React.render((
+	<Provider store={store}>
+		{() => <App />}
+	</Provider>
+), document.getElementById('main'));
 
