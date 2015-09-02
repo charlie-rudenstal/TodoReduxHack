@@ -1,0 +1,29 @@
+{
+  "name": "tictail-hack",
+  "version": "0.0.0",
+  "description": "",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Charlie Rudenstål <charlie4@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/charlie-rudenstal/TictailHack"
+  },
+  "dependencies": {
+    "react": "^0.13.3",
+    "express": "^4.13.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-less": "^3.0.3",
+    "gulp-minify-css": "^1.2.1",
+    "browserify": "^11.0.1",
+    "vinyl-source-stream": "^1.1.0",
+    "babelify": "^6.3.0",
+    "gulp-livereload": "^3.8.0",
+    "gulp-if": "^1.2.5",
+    "gulp-inject-reload": "0.0.2"
+  }
+}

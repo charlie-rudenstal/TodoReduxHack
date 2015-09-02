@@ -11,6 +11,9 @@ logs
 npm-debug.log*
 node_modules
 
+# Frontend app
+frontend/dist
+
 # OS
 Thumbs.db
 .DS_Store
