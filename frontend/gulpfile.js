@@ -17,6 +17,7 @@ gulp.task('browserify', function() {
 	return browserify('./src/js/app.js')
 		.transform(babelify)
 		.bundle()
+		.on('error', handleError)
 		.pipe(source('client.bundle.js'))
 		.pipe(gulp.dest('./dist/js'))
 		.pipe(gulpif(isLiveReload, livereload()));
@@ -39,6 +40,11 @@ function index() {
 		.pipe(gulpif(isLiveReload, injectReload()))
 		.pipe(gulp.dest('./dist'))
 		.pipe(gulpif(isLiveReload, livereload()));
+}
+
+function handleError(err) {
+	console.log('Error', err);
+	this.emit('end');
 }
 
 gulp.task('build', ['index', 'browserify', 'less']);

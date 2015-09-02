@@ -1,11 +1,21 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
+import TaskListContainer from './components/TaskListContainer';
 
-class HelloWorld extends React.Component {
-
+class App extends React.Component {
 	render() {
-		return <div>Hello World</div>;
+		return  (
+			<div>
+				<TaskListContainer />
+			</div>
+		);
 	}
 }
 
-React.render(<HelloWorld />, document.getElementById('main'));
+React.render((
+	<Provider store={store}>
+		{() => <App />}
+	</Provider>
+), document.getElementById('main'));
 
