@@ -29,7 +29,7 @@ export default class TaskListContainer extends React.Component {
 				<TaskList tasks={this.props.tasks} />
 
 				<div>
-					<div>{this.props.tasks.length} items left</div>
+					<div>{this.props.tasks.filter(t => !t.done).length} items left</div>
 					<button>Mark all as complete</button>
 				</div>
 			</div>
