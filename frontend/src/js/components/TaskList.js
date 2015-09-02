@@ -6,9 +6,9 @@ export default class TaskList extends React.Component {
 	render() {
 		return  (
 			<div>
-				<TaskItem />
-				<TaskItem />
-				<TaskItem />
+				{this.props.tasks.map(task =>
+					<TaskItem key={this.props.tasks.indexOf(task)} task={task} />
+				)}
 			</div>
 		);
 	}
