@@ -52,5 +52,22 @@ export default {
 				data: task,
 			}
 		}
+	},
+
+	deleteTask(uri) {
+		return {
+			types: [
+				'DELETE_TASK_PENDING',
+				'DELETE_TASK_SUCCESS',
+				'DELETE_TASK_FAIL',
+			],
+			payload: {
+				promise: promisify(fetcher
+						.delete('taskService')
+						.params({ uri })
+				),
+				data: uri,
+			}
+		}
 	}
 }

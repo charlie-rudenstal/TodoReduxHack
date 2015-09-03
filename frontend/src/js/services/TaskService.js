@@ -31,4 +31,15 @@ module.exports = {
 			});
 	},
 
+	delete: function(req, resource, params, config, callback) {
+		request.del(baseUrl + params.uri)
+			.send(params)
+			.end(function(err, res) {
+				if (err) {
+					return callback(new Error(res.body.error));
+				}
+				callback(null, res.body);
+			});
+	}
+
 };
