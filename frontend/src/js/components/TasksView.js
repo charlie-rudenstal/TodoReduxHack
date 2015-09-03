@@ -21,23 +21,24 @@ export default class TasksView extends React.Component {
 	}
 
 	@autobind
-	handleCreateTask() {
+	handleCreateTask(event) {
 		let txtNewTask = React.findDOMNode(this.refs.txtNewTask);
 		let task = { text: txtNewTask.value, done: false };
 		if (this.props.onCreateTask) {
 			this.props.onCreateTask(task);
 		}
+		txtNewTask.value = '';
+		event.preventDefault();
 	}
 
 	render() {
 		return  (
 			<div style={{ backgroundColor: 'white' }}>
 				<h1>Todos</h1>
-				<div>
+				<form onSubmit={this.handleCreateTask}>
 					<input ref='txtNewTask' type="text" placeholder="What needs to be done?" />
-					<button onClick={this.handleCreateTask}>Add Todo</button>
-				</div>
-
+					<input type="submit" value="Add Todo" />
+				</form>
 				<TaskList
 					tasks={this.props.tasks}
 					onUpdateTask={this.props.onUpdateTask}
