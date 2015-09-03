@@ -47,7 +47,7 @@ def create():
     tasks[id] = task;
 
     # Create a response
-    resp = jsonify(task)
+    resp = jsonify(getPublicTask(id))
     resp.status_code = 201
     resp.headers['location'] = url_for('get', id = id)
     return resp
@@ -73,7 +73,7 @@ def update(id):
     tasks[id] = task;
     
     # Create a response
-    resp = jsonify(task)
+    resp = jsonify(getPublicTask(id))
     resp.status_code = 201
     resp.headers['location'] = url_for('get', id = id)
     return resp

@@ -9,6 +9,7 @@ import { autobind } from 'core-decorators';
 	dispatch => ({
 		onLoadTasks: () => dispatch(taskActions.loadTasks()),
 		onCreateTask: (task) => dispatch(taskActions.createTask(task)),
+		onUpdateTask: (task) => dispatch(taskActions.updateTask(task)),
 	})
 )
 export default class TasksView extends React.Component {
@@ -36,10 +37,10 @@ export default class TasksView extends React.Component {
 					<button onClick={this.handleCreateTask}>Add Todo</button>
 				</div>
 
-				<TaskList tasks={this.props.tasks} />
+				<TaskList tasks={this.props.tasks} onUpdateTask={this.props.onUpdateTask} />
 
 				<div>
-					<div>{this.props.tasks.filter(t => !t.done).length} items left</div>
+					<div>{this.props.tasks.filter(t => !t.get('done')).size} items left</div>
 					<button>Mark all as complete</button>
 				</div>
 			</div>

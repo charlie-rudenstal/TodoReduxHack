@@ -18,6 +18,17 @@ module.exports = {
 				}
 				callback(null, res.body);
 			});
-	}
+	},
+
+	update: function(req, resource, params, body, config, callback) {
+		request.put(baseUrl + params.uri)
+			.send(params)
+			.end(function(err, res) {
+				if (err) {
+					return callback(new Error(res.body.error));
+				}
+				callback(null, res.body);
+			});
+	},
 
 };
