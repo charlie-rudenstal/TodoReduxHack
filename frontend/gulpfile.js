@@ -24,7 +24,7 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('less', function() {
-	return gulp.src('src/less/**/*.less')
+	return gulp.src('src/less/main.less')
 		.pipe(less())
 		.pipe(minifyCSS())
 		.pipe(gulp.dest('./dist/css'))
