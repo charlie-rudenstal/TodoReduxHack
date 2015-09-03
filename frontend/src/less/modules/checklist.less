@@ -11,6 +11,16 @@
   *    - Charlie Rudenstål
  */
 
-.tasklist {
-  min-height: 275px;
+.checklist {
+  &-item {
+    padding: 18px 20px;
+    width: 100%;
+    &:nth-child(odd) {
+      background-color: #f4f7fa;
+    }
+    &_checked {
+      color: #999;
+      text-decoration: line-through;
+    }
+  }
 }

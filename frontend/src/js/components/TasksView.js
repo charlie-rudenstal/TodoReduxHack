@@ -34,32 +34,31 @@ export default class TasksView extends React.Component {
 	render() {
 		return  (
 			<div className="content">
-
-				<h1 className="header">Todos</h1>
+				<div className="content-header">
+					<h1 className="header">Todos</h1>
+				</div>
 
 				<form className="content-item" onSubmit={this.handleCreateTask}>
 					<input
 						className="textinput"
-						style={{ minWidth: '65%' }}
+						style={{ minWidth: '68%' }}
 						ref='txtNewTask'
 						type="text"
 						placeholder="What needs to be done?"/>
 					<input
 						className="button"
-						style={{ minWidth: '25%' }}
+						style={{ minWidth: '27%' }}
 						type="submit"
 						value="Add Todo" />
 				</form>
 
 				<TaskList
-					className="content-item content-item_horizontal"
 					tasks={this.props.tasks}
 					onUpdateTask={this.props.onUpdateTask}
 					onDeleteTask={this.props.onDeleteTask} />
 
-				<div className="content-item">
+				<div className="content-footer">
 					<div>{this.props.tasks.filter(t => !t.get('done')).size} items left</div>
-					<button>Mark all as complete</button>
 				</div>
 
 			</div>
