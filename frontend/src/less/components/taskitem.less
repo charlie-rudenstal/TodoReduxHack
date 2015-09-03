@@ -1,0 +1,19 @@
+.taskitem {
+  &-label {
+    display: block;
+    width: 100%;
+  }
+
+  &-delete {
+    float: right;
+    cursor: pointer;
+  }
+
+  /* Only show delete button on item hover */
+  .taskitem-delete {
+    display: none;
+  }
+  &:hover .taskitem-delete {
+    display: block;
+  }
+}
