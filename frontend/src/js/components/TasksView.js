@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import taskActions from '../actions/tasks';
 import TaskList from './TaskList';
 import { autobind } from 'core-decorators';
+import { Position } from './layout';
 
 @connect(
 	state => ({ tasks: state.tasks }),
@@ -58,7 +59,16 @@ export default class TasksView extends React.Component {
 					onDeleteTask={this.props.onDeleteTask} />
 
 				<div className="content-footer">
-					<div>{this.props.tasks.filter(t => !t.get('done')).size} items left</div>
+					<Position>
+						<div className="label label_weak">
+							{this.props.tasks.filter(t => !t.get('done')).size} items left
+						</div>
+						<Position.Right verticalCenter>
+							<button className="button button_weak" title="Not implemented :(">
+								Mark all as complete
+							</button>
+						</Position.Right>
+					</Position>
 				</div>
 
 			</div>
