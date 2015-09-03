@@ -2,19 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import taskActions from '../actions/tasks';
 import TaskList from './TaskList';
+import { autobind } from 'core-decorators';
 
 @connect(
 	state => ({ tasks: state.tasks }),
 	dispatch => ({
 		onLoadTasks: () => dispatch(taskActions.loadTasks()),
-		onCreateTask: () => dispatch(taskActions.createTask()),
+		onCreateTask: (task) => dispatch(taskActions.createTask(task)),
 	})
 )
-export default class TaskListContainer extends React.Component {
+export default class TasksView extends React.Component {
 
 	constructor() {
 		super(...arguments);
 		this.props.onLoadTasks();
+	}
+
+	@autobind
+	handleCreateTask() {
+		let txtNewTask = React.findDOMNode(this.refs.txtNewTask);
+		let task = { text: txtNewTask.value, done: false };
+		if (this.props.onCreateTask) {
+			this.props.onCreateTask(task);
+		}
 	}
 
 	render() {
@@ -22,8 +32,8 @@ export default class TaskListContainer extends React.Component {
 			<div style={{ backgroundColor: 'white' }}>
 				<h1>Todos</h1>
 				<div>
-					<input type="text" placeholder="What needs to be done?" />
-					<button onClick={this.props.onCreateTask}>Add Todo</button>
+					<input ref='txtNewTask' type="text" placeholder="What needs to be done?" />
+					<button onClick={this.handleCreateTask}>Add Todo</button>
 				</div>
 
 				<TaskList tasks={this.props.tasks} />
