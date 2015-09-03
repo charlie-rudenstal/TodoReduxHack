@@ -38,8 +38,17 @@ export default class TasksView extends React.Component {
 				<h1 className="header">Todos</h1>
 
 				<form className="content-item" onSubmit={this.handleCreateTask}>
-					<input ref='txtNewTask' type="text" placeholder="What needs to be done?" />
-					<input type="submit" value="Add Todo" />
+					<input
+						className="textinput"
+						style={{ minWidth: '65%' }}
+						ref='txtNewTask'
+						type="text"
+						placeholder="What needs to be done?"/>
+					<input
+						className="button"
+						style={{ minWidth: '25%' }}
+						type="submit"
+						value="Add Todo" />
 				</form>
 
 				<TaskList
