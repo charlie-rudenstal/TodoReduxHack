@@ -10,7 +10,8 @@ export default class TaskList extends React.Component {
 					<TaskItem
 						key={task.get('uri')}
 						task={task}
-						onUpdateTask={this.props.onUpdateTask} />
+						onUpdateTask={this.props.onUpdateTask}
+						onDeleteTask={this.props.onDeleteTask} />
 				).toArray()} {/* toArray due to https://github.com/facebook/immutable-js/issues/554 */}
 			</div>
 		);

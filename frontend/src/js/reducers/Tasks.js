@@ -17,6 +17,10 @@ export default function(state = Immutable.Map(), action) {
 		UPDATE_TASK_SUCCESS: () => state.set(action.payload.get('uri'), action.payload),
 		UPDATE_TASK_FAIL: () => state, // todo: error message
 
+		DELETE_TASK_PENDING: () => state.remove(action.payload),
+		DELETE_TASK_SUCCESS: () => state.remove(action.payload),
+		DELETE_TASK_FAIL: () => state, // todo: error message
+
 		default: () => state,
 	});
 };
