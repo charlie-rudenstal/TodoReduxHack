@@ -3,10 +3,10 @@ from flask import Flask, jsonify, request, abort, url_for
 app = Flask(__name__)
 
 tasks = {
-    shortuuid.uuid(): { 'text': 'Discuss report with John', 'done': True },
+    shortuuid.uuid(): { 'text': 'Discuss report with John', 'done': False },
     shortuuid.uuid(): { 'text': 'Get a haircut', 'done': True },
     shortuuid.uuid(): { 'text': 'Pay electricity bill', 'done': True },
-    shortuuid.uuid(): { 'text': 'Check gym hours', 'done': True },
+    shortuuid.uuid(): { 'text': 'Check gym hours', 'done': False },
 }
 
 def getPublicTask(id):
@@ -47,7 +47,7 @@ def create():
     tasks[id] = task;
 
     # Create a response
-    resp = jsonify(task)
+    resp = jsonify(getPublicTask(id))
     resp.status_code = 201
     resp.headers['location'] = url_for('get', id = id)
     return resp
@@ -73,7 +73,7 @@ def update(id):
     tasks[id] = task;
     
     # Create a response
-    resp = jsonify(task)
+    resp = jsonify(getPublicTask(id))
     resp.status_code = 201
     resp.headers['location'] = url_for('get', id = id)
     return resp

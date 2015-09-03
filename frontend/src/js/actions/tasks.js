@@ -1,15 +1,73 @@
-export default {
+import Fetcher from 'fetchr';
+import promisify from '../util/promisifyFetchr';
+import _ from 'lodash';
+import Immutable from 'immutable'
+let fetcher = new Fetcher({ xhrPath: '/api-proxy' });
 
+export default {
 	loadTasks() {
-		const tasks = [
-			{ title: 'first', done: true },
-			{ title: 'second', done: false },
-		];
-		return { type: 'LOAD_TASKS', tasks };
+		return {
+			types: [
+				'LOAD_TASKS_PENDING',
+				'LOAD_TASKS_SUCCESS',
+				'LOAD_TASKS_FAIL',
+			],
+			payload: {
+				promise: promisify(fetcher.read('taskService'))
+					.then((payload) => _.indexBy(payload.tasks, 'uri'))
+					.then(Immutable.fromJS)
+			}
+		};
 	},
 
-	createTask() {
-		return { type: 'CREATE_TASK' };
-	}
+	createTask(task) {
+		return {
+			types: [
+				'CREATE_TASK_PENDING',
+				'CREATE_TASK_SUCCESS',
+				'CREATE_TASK_FAIL',
+			],
+			payload: {
+				promise: promisify(fetcher
+					.create('taskService')
+					.params(task)
+				).then(Immutable.fromJS),
+				data: task,
+			}
+		};
+	},
 
+	updateTask(task) {
+		return {
+			types: [
+				'UPDATE_TASK_PENDING',
+				'UPDATE_TASK_SUCCESS',
+				'UPDATE_TASK_FAIL',
+			],
+			payload: {
+				promise: promisify(fetcher
+					.update('taskService')
+					.params(task.toJS())
+				).then(Immutable.fromJS),
+				data: task,
+			}
+		}
+	},
+
+	deleteTask(uri) {
+		return {
+			types: [
+				'DELETE_TASK_PENDING',
+				'DELETE_TASK_SUCCESS',
+				'DELETE_TASK_FAIL',
+			],
+			payload: {
+				promise: promisify(fetcher
+						.delete('taskService')
+						.params({ uri })
+				),
+				data: uri,
+			}
+		}
+	}
 }

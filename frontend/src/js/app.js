@@ -1,13 +1,15 @@
+require("babel/polyfill");
+
 import React from 'react';
 import { Provider } from 'react-redux';
 import store from './store';
-import TaskListContainer from './components/TaskListContainer';
+import TasksView from './components/TasksView';
 
 class App extends React.Component {
 	render() {
 		return  (
 			<div>
-				<TaskListContainer />
+				<TasksView />
 			</div>
 		);
 	}
