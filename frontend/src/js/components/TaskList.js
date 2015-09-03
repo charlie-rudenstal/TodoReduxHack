@@ -1,11 +1,12 @@
 import React from 'react';
 import TaskItem from './TaskItem';
+import cx from 'classnames';
 
 export default class TaskList extends React.Component {
 
 	render() {
 		return  (
-			<div>
+			<div className={cx('tasklist', this.props.className)}>
 				{this.props.tasks.toSeq().map(task =>
 					<TaskItem
 						key={task.get('uri')}
