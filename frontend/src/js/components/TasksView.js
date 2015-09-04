@@ -23,13 +23,20 @@ export default class TasksView extends React.Component {
 
 	@autobind
 	handleCreateTask(event) {
+		// Don't refresh the page on form submit
+		event.preventDefault();
+
+		// Get the new task text and disallow empty texts
 		let txtNewTask = React.findDOMNode(this.refs.txtNewTask);
+		if (!txtNewTask.value.trim()) {
+			return;
+		}
+
 		let task = { text: txtNewTask.value, done: false };
 		if (this.props.onCreateTask) {
 			this.props.onCreateTask(task);
 		}
 		txtNewTask.value = '';
-		event.preventDefault();
 	}
 
 	render() {
